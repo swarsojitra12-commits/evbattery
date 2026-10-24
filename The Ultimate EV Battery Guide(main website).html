@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Ultimate EV Battery Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6faf7;--surface:#fff;--ink:#12261a;--muted:#4c6355;--green:#0b7a42;--green-d:#064d2a;--tint:#e4f3ea;--line:#cfe3d6;--warn:#f5a623;--warn-t:#fff1d9;--bad:#c42828;--bad-t:#fbe9e8;--cold:#2f6fd0;--cold-t:#e2edfb;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1a12;--surface:#14261b;--ink:#e6f3ea;--muted:#9fb8a8;--green:#3fc280;--green-d:#0b7a42;--tint:#183324;--line:#27442f;--warn-t:#3a2c10;--bad-t:#3a1a1a;--cold-t:#15283f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1a12;--surface:#14261b;--ink:#e6f3ea;--muted:#9fb8a8;--green:#3fc280;--green-d:#0b7a42;--tint:#183324;--line:#27442f;--warn-t:#3a2c10;--bad-t:#3a1a1a;--cold-t:#15283f;color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Source Sans 3",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","Source Sans 3",system-ui,sans-serif;line-height:1.15;margin:0 0 .5em}
+h2{font-size:clamp(1.6rem,4vw,2.2rem);color:var(--green)}
+h3{font-size:1.15rem}
+p{margin:0 0 1em;max-width:68ch}
+a{color:var(--green)}
+:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--green-d);z-index:30}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--green-d);color:#fff;display:flex;gap:.25rem;align-items:center;padding:.5rem 1rem;overflow-x:auto;white-space:nowrap}
+nav b{font-family:"Bricolage Grotesque",sans-serif;margin-right:.75rem}
+nav a{color:#fff;text-decoration:none;padding:.3rem .65rem;border-radius:99px;font-size:.92rem}
+nav a:hover{background:rgba(255,255,255,.18)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.25rem}
+section{padding:3.5rem 0 1rem}
+.hero{background:var(--green-d);color:#fff;padding:3.5rem 0 3rem}
+.hero h1{font-size:clamp(2.2rem,6.5vw,4.2rem);font-weight:800;max-width:15ch}
+.hero p{font-size:1.15rem;max-width:52ch;color:#d6eedf}
+.hero small{color:#a9d6bb}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.25rem}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.tint{background:var(--tint)}
+.warn{background:var(--warn-t);border-color:var(--warn)}
+.bad{background:var(--bad-t);border-color:var(--bad)}
+.cold{background:var(--cold-t);border-color:var(--cold)}
+ul{padding-left:1.2rem;margin:.4rem 0 1rem}
+li{margin:.25rem 0}
+.yes li::marker{content:"✓  ";color:var(--green);font-weight:700}
+.no li::marker{content:"✕  ";color:var(--bad);font-weight:700}
+/* charge meter */
+.meter{margin:1.5rem 0}
+.bar{display:flex;height:64px;border-radius:12px;overflow:hidden;border:3px solid var(--green-d);position:relative}
+.bar span{display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:.9rem}
+.z1{flex:20;background:var(--bad)}.z2{flex:60;background:var(--green)}.z3{flex:20;background:var(--warn);color:#2b1c00!important}
+.pin{position:absolute;top:-6px;bottom:-6px;width:4px;background:var(--ink);left:50%;border-radius:2px;pointer-events:none}
+input[type=range]{width:100%;accent-color:var(--green);margin-top:.9rem}
+.read{font-size:1.15rem;font-weight:600;min-height:3.2em}
+.ticks{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted)}
+/* tables */
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:520px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+th,td{text-align:left;padding:.65rem .9rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--tint);color:var(--green)}
+/* steps */
+.steps{counter-reset:s;list-style:none;padding:0;display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem 1rem 3.3rem;position:relative;margin:0}
+.steps li::before{content:counter(s);position:absolute;left:1rem;top:1rem;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.9rem}
+.steps b{display:block}
+/* calculator */
+.calc{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:end}
+label{display:block;font-weight:600;font-size:.9rem}
+input[type=number],select{width:100%;padding:.55rem .6rem;font:inherit;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.out{font-family:"Bricolage Grotesque",sans-serif;font-size:1.8rem;color:var(--green);font-weight:800}
+/* temperature */
+.temp{display:flex;height:42px;border-radius:10px;overflow:hidden;font-weight:700;color:#fff;font-size:.9rem;margin:1rem 0}
+.temp span{display:flex;align-items:center;justify-content:center}
+.rules{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));list-style:none;padding:0;counter-reset:r}
+.rules li{counter-increment:r;margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:.9rem 1rem .9rem 3.4rem;position:relative}
+.rules li::before{content:counter(r);position:absolute;left:1rem;top:.85rem;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--green-d);color:#fff;display:grid;place-items:center;font-weight:700}
+dl{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:0}
+dl div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem}
+dt{font-weight:700;color:var(--green)}dd{margin:0;color:var(--muted)}
+footer{margin-top:4rem;background:var(--green-d);color:#d6eedf;padding:2.5rem 0}
+footer p{max-width:80ch}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html{-webkit-text-size-adjust:100%}
+.toc{columns:2 280px;column-gap:2rem;padding-left:1.6rem;font-weight:600}.toc li{break-inside:avoid;margin:0}.toc a{display:inline-block;padding:.4rem 0;text-decoration:none}.toc a:hover{text-decoration:underline}
+nav a{padding:.55rem .8rem}
+.top{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));width:48px;height:48px;border:0;border-radius:50%;background:var(--green-d);color:#fff;font-size:1.4rem;cursor:pointer;z-index:25;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+@media (max-width:600px){body{font-size:16px}section{padding-top:2.5rem}.hero{padding:2.5rem 0 2rem}.wrap{padding:0 1rem}.bar{height:76px}.bar span{font-size:.72rem;text-align:center;line-height:1.1;padding:0 2px}.card{padding:1rem}.rules{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.out{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<nav aria-label="Topics"><b>EV Guide</b><a href="#contents">Contents</a><a href="#basics">1 Intro</a><a href="#how">2 How it works</a><a href="#types">3 Materials</a><a href="#build">4 Factory</a><a href="#pack">5 Cell to pack</a><a href="#habits">6 Habits</a><a href="#rule">7 20–80%</a><a href="#charging">8 Charging speed</a><a href="#vs">9 Slow vs fast</a><a href="#slow">10 Slowdowns</a><a href="#weather">11 Weather</a><a href="#rules">12 10 rules</a><a href="#safety">13 Safety</a><a href="#glossary">14 Glossary</a></nav>
+
+<header class="hero"><div class="wrap">
+<h1>How to make your EV battery last</h1>
+<p>An electric car’s battery is the heart of the car and its most expensive part. This guide explains how it works and the habits that keep it healthy for years.</p>
+<small>By Swar Sojitra · Grade 10 · MYP Personal Project 2026–27 · A simple guide for every EV driver</small>
+</div></header>
+
+<main class="wrap">
+
+<section id="contents">
+<h2>Contents</h2>
+<ol class="toc"><li><a href="#basics">Introduction to EV battery</a></li><li><a href="#how">How a lithium-ion battery works</a></li><li><a href="#types">What is inside? Materials and types</a></li><li><a href="#build">Inside the factory: how batteries are made</a></li><li><a href="#pack">From cell to battery pack</a></li><li><a href="#habits">Battery usage habits</a></li><li><a href="#rule">The 20–80% rule</a></li><li><a href="#charging">Charging speed explained</a></li><li><a href="#vs">The ultimate charging: slow vs fast</a></li><li><a href="#slow">Why does charging slow down or stop?</a></li><li><a href="#weather">The weather survival guide</a></li><li><a href="#rules">Extending battery life: 10 rules</a></li><li><a href="#safety">Safety first!</a></li><li><a href="#glossary">Quick glossary</a></li></ol>
+</section>
+
+<section id="basics">
+<h2>1. Introduction to EV battery</h2>
+<p>An electric car has no petrol tank. It has a big battery pack, usually under the floor, that stores electricity and sends it to the motor.</p>
+<div class="grid">
+<div class="card tint"><h3>kWh</h3><p>How much energy the battery holds. Think of it as the size of the fuel tank.</p></div>
+<div class="card tint"><h3>kW</h3><p>How fast energy moves. Think of it as how wide the tap is open.</p></div>
+<div class="card tint"><h3>State of Charge (SoC)</h3><p>The battery percentage you see on the screen.</p></div>
+<div class="card tint"><h3>Range</h3><p>How many km you can drive on one charge.</p></div>
+<div class="card tint"><h3>BMS</h3><p>Battery Management System: the car’s “brain” that watches every part of the battery.</p></div>
+</div>
+</section>
+<section id="how">
+<h2>2. How a lithium-ion battery works</h2>
+<p>A car battery is made of thousands of small <b>cells</b>. Each cell has a <b>cathode (+)</b> and an <b>anode (−)</b>. Between them are a liquid called the <b>electrolyte</b> and a thin wall called the <b>separator</b> that keeps the two sides apart. Tiny charged particles called <b>lithium ions</b> move between the sides. That movement is how energy is stored and released.</p>
+<div class="grid">
+<div class="card"><h3>Charging (plugged in)</h3><p>The charger pushes lithium ions from the cathode to the anode, where they are stored. Energy is now “saved”.</p></div>
+<div class="card"><h3>Discharging (driving)</h3><p>The ions flow back to the cathode. This makes electrons travel through the wire and power the motor.</p></div>
+<div class="card warn"><h3>Why batteries wear out</h3><p>One cycle is one full charge plus one full use. Every cell slowly wears out with cycles. Heat and stress make the wear faster. Good habits make it slower.</p></div>
+</div>
+</section>
+
+<section id="types">
+<h2>3. What is inside? Materials and types</h2>
+<p>A battery is not just “lithium”. Each material has a job. Some give more range, some give more safety, and some are expensive or hard to mine, which is why companies keep changing the recipe.</p>
+<div class="scroll"><table>
+<tr><th>Material</th><th>Its job</th></tr>
+<tr><td>Lithium</td><td>Carries the charge. Moves between cathode and anode.</td></tr>
+<tr><td>Nickel</td><td>Stores more energy, so the car gets more range.</td></tr>
+<tr><td>Cobalt</td><td>Keeps the cathode stable. Costly, and mining it raises ethical concerns.</td></tr>
+<tr><td>Manganese</td><td>Cheaper material that helps with stability and safety.</td></tr>
+<tr><td>Iron + phosphate</td><td>Used in LFP batteries. No cobalt or nickel needed.</td></tr>
+<tr><td>Graphite</td><td>The anode. Holds the lithium ions when charged.</td></tr>
+<tr><td>Aluminium foil</td><td>Thin metal sheet the cathode powder is coated on.</td></tr>
+<tr><td>Copper foil</td><td>Thin metal sheet the anode powder is coated on.</td></tr>
+</table></div>
+<h3 style="margin-top:2rem">Two main battery types</h3>
+<div class="grid">
+<div class="card"><h3>NMC / NCA (nickel-rich)</h3><ul><li>Stores more energy, so longer range in a lighter pack</li><li>Costs more (uses nickel and cobalt)</li><li>Reacts more to heat and to being kept at 100%</li><li>Best for daily use: 20–80%</li></ul></div>
+<div class="card"><h3>LFP (lithium iron phosphate)</h3><ul><li>Very long life (many more cycles)</li><li>Cheaper, no cobalt, handles heat better</li><li>A bit less range for the same weight</li><li>Many makers say charging to 100% often is fine</li></ul></div>
+</div>
+</section>
+
+<section id="build">
+<h2>4. Inside the factory: how batteries are made</h2>
+<ol class="steps">
+<li><b>Mining and refining</b>Lithium, nickel, cobalt, manganese and graphite are mined and cleaned into fine battery-grade powders.</li>
+<li><b>Mixing the slurry</b>Powders are mixed with a binder and a liquid into a thick “paint”: one for the cathode, one for the anode.</li>
+<li><b>Coating and drying</b>The paint is spread on thin metal foil (aluminium for cathode, copper for anode), dried, pressed flat and cut to size.</li>
+<li><b>Cell assembly</b>Electrode sheets and separator are stacked or rolled, put into a can or pouch, filled with electrolyte and sealed.</li>
+<li><b>Formation</b>The cell gets its first careful charge. This builds a thin protective layer on the anode that keeps the cell healthy for years.</li>
+<li><b>Testing and sorting</b>Every cell is measured. Only cells with matching capacity are put together.</li>
+<li><b>Modules and packs</b>Cells are grouped, cooled, wired to the BMS and locked inside a strong case.</li>
+</ol>
+<div class="card warn"><h3>Super clean rooms</h3><p>Cells are assembled in a dry room with almost no moisture. One drop of water or a speck of dust can ruin a cell. A battery is a precise machine, so extreme heat and deep drains undo careful work.</p></div>
+</section>
+<section id="pack">
+<h2>5. From cell to battery pack</h2>
+<p>One cell (about 3.6 V) is far too small to run a car. Cells are joined into <b>modules</b>, and modules into one big <b>battery pack</b> of a few hundred to several thousand cells, giving about 400 V.</p>
+<div class="grid">
+<div class="card tint"><h3>Cooling system</h3><p>Most packs have liquid-cooled plates that carry heat away while driving and fast charging.</p></div>
+<div class="card tint"><h3>BMS (the brain)</h3><p>Reads voltage and temperature of every group, balances cells, slows charging when hot and cuts power if something is unsafe.</p></div>
+<div class="card tint"><h3>Strong case</h3><p>A steel or aluminium shell protects the cells from water, dust and impacts.</p></div>
+<div class="card warn"><h3>High-voltage cables</h3><p>Thick orange cables carry the power. Never touch them.</p></div>
+</div>
+<p style="margin-top:1rem"><b>Why this matters to you:</b> the BMS is the reason your car sometimes slows charging or shows a temperature warning. It is not broken, it is protecting the battery.</p>
+</section>
+
+<section id="habits">
+<h2>6. Battery usage habits</h2>
+<p>Most battery damage does not come from one big mistake. It comes from small habits repeated every day.</p>
+<div class="grid">
+<div class="card tint yes"><h3>Habits that help</h3><ul>
+<li>Charge little and often, keeping the battery in the 20–80% range</li>
+<li>Plug in at home overnight on slow AC charging</li>
+<li>Drive smoothly and let regenerative braking work</li>
+<li>Park in the shade or garage</li>
+<li>Warm up or cool down the cabin while still plugged in</li>
+<li>Keep tyres at the right pressure (less effort, less heat)</li>
+<li>Install the car’s software updates</li></ul></div>
+<div class="card bad no"><h3>Habits that hurt</h3><ul>
+<li>Charging to 100% every single day and leaving it there</li>
+<li>Driving the battery down to 0–5% regularly</li>
+<li>Using fast chargers daily when a slow one would do</li>
+<li>Fast charging right after a long, hot drive</li>
+<li>Leaving the car for weeks at full or empty</li>
+<li>Flat-out acceleration again and again</li>
+<li>Ignoring warning lights or messages</li></ul></div>
+</div>
+</section>
+
+<section id="rule">
+<h2>7. The 20–80% rule</h2>
+<p>Lithium-ion cells are happiest in the middle of their range. Very high and very low charge both put extra stress on the chemicals inside. Drag the slider to see what each level means for your battery.</p>
+<div class="meter">
+<div class="bar" aria-hidden="true"><span class="z1">Too low</span><span class="z2">Sweet spot</span><span class="z3">High stress</span><div class="pin" id="pin"></div></div>
+<input type="range" id="soc" min="0" max="100" value="50" aria-label="Battery charge level in percent">
+<div class="ticks"><span>0%</span><span>20%</span><span>50%</span><span>80%</span><span>100%</span></div>
+<p class="read" id="read" aria-live="polite"></p>
+</div>
+<div class="grid">
+<div class="card"><h3>Why not always 100%?</h3><p>At full charge the cell voltage is highest. Sitting there for hours or days speeds up unwanted reactions and the battery loses capacity faster.</p></div>
+<div class="card"><h3>Why not near 0%?</h3><p>Very low charge stresses the cell structure and leaves no safety margin. Repeated deep drains shorten battery life.</p></div>
+<div class="card"><h3>Think of a rubber band</h3><p>Stretched fully or left completely loose for a long time, it wears out. Kept in the comfortable middle, it stays healthy for years.</p></div>
+</div>
+<ul>
+<li><b>Set a charge limit</b> of 80% in your car or app. Most EVs have this.</li>
+<li><b>Going on a long trip?</b> Charging to 100% is fine. Leave soon after it finishes and do not park at 100% for days.</li>
+<li><b>LFP battery?</b> Many makers say 100% is okay regularly. Check your manual.</li>
+</ul>
+<p><b>Rule of thumb: recharge at 20–30%, stop at about 80%.</b></p>
+</section>
+
+<section id="charging">
+<h2>8. Charging speed explained</h2>
+<p>Before comparing slow and fast charging, know the difference between kW and kWh. A 40 kWh battery holds 40 units of energy. A 60 kW charger is about 8 times faster than a 7.4 kW one.</p>
+<div class="scroll"><table>
+<tr><th>Charger</th><th>Typical power</th><th>Typical time</th></tr>
+<tr><td>Home socket / portable charger (AC)</td><td>about 3.3 kW</td><td>Overnight, 8–12+ hours</td></tr>
+<tr><td>Wall charger at home / office (AC)</td><td>about 7.4 kW</td><td>5–8 hours for a full charge</td></tr>
+<tr><td>Public DC fast charger</td><td>30–60 kW</td><td>About 30–60 min for 10 to 80%</td></tr>
+<tr><td>Ultra-fast DC charger</td><td>120 kW and above</td><td>About 20–40 min for 10 to 80% (if the car allows)</td></tr>
+</table></div>
+<h3 style="margin-top:2rem">Charging time calculator</h3>
+<p>Formula: time (hours) = energy needed (kWh) ÷ charger power (kW), plus a little extra for losses.</p>
+<div class="card"><div class="calc">
+<div><label for="kwh">Battery size (kWh)</label><input type="number" id="kwh" value="40" min="1"></div>
+<div><label for="from">From (%)</label><input type="number" id="from" value="20" min="0" max="100"></div>
+<div><label for="to">To (%)</label><input type="number" id="to" value="80" min="0" max="100"></div>
+<div><label for="kw">Charger</label><select id="kw"><option value="3.3">Home socket, 3.3 kW</option><option value="7.4" selected>Wall charger, 7.4 kW</option><option value="30">DC fast, 30 kW</option><option value="60">DC fast, 60 kW</option><option value="120">Ultra-fast, 120 kW</option></select></div>
+<div><label>Approx. time</label><div class="out" id="time" aria-live="polite"></div></div>
+</div>
+<p style="margin:.8rem 0 0;color:var(--muted)">Real speed depends on your car, battery temperature and charge level. The car can be slower than the charger, never faster. Ignores the slowdown above about 80%.</p></div>
+</section>
+<section id="vs">
+<h2>9. The ultimate charging: slow vs fast</h2>
+<div class="grid">
+<div class="card tint"><h3>Slow (AC) charging</h3><ul><li>Low heat, the gentlest way to charge</li><li>Cheapest, especially at home</li><li>Easy: plug in at night and forget</li><li>But takes many hours and is not useful on a quick stop</li></ul><p><b>Best for daily charging at home or work.</b></p></div>
+<div class="card warn"><h3>Fast (DC) charging</h3><ul><li>Very quick: 10 to 80% in about 30–60 minutes</li><li>Makes long trips possible</li><li>But creates a lot of heat, costs more per unit and doing it every day speeds up wear</li></ul><p><b>Best for highway trips and emergencies.</b></p></div>
+</div>
+<div class="card" style="margin-top:1rem"><h3>The science: why fast charging makes heat</h3><p>Inside every cell there is a small resistance. When a very large current is squeezed through it, some energy turns into heat. More current means much more heat. Heat speeds up unwanted chemical reactions, so the battery slowly loses capacity.</p><p>Charging fast when the battery is very full or very cold can also cause <b>lithium plating</b>: metal lithium builds up on the anode instead of moving inside it. This lowers capacity for good and can be a safety risk.</p></div>
+</section>
+<section id="slow">
+<h2>10. Why does charging slow down or stop?</h2>
+<div class="grid">
+<div class="card"><h3>The battery fills up</h3><p>After about 80% the car lowers the power to protect the cells, like pouring a glass of water slowly at the end.</p></div>
+<div class="card"><h3>The battery is too hot</h3><p>The BMS cuts power to stop damage. This is protection, not a fault.</p></div>
+<div class="card"><h3>The battery is too cold</h3><p>Cold cells cannot take fast charging safely, so the car holds the speed down.</p></div>
+<div class="card"><h3>A charger or car limit</h3><p>The slower of the two sets the speed.</p></div>
+</div>
+<p style="margin-top:1rem"><b>So at a fast charger, stop at about 80%!</b></p>
+<div class="card warn"><h3>What happened on my trip</h3><p>On my first trip to my village by electric car, we stopped at a charging station after an hour of driving. The car was charging at about 60 kW, then it stopped and a message said “battery overheated”. Now I understand: after an hour of driving the battery was already warm. Fast charging added more heat, so the BMS protected the cells by slowing and then stopping the charge.</p>
+<b>How to avoid it next time</b>
+<ul><li>Drive gently in the last stretch so the battery is not extra hot</li><li>Use the car’s navigation to a charger if it can pre-warm or pre-cool the battery</li><li>Charge only to 80% and then continue</li><li>Wait a few minutes, or try another charger with lower power</li><li>If it keeps happening, ask the service centre to check</li></ul></div>
+</section>
+
+<section id="weather">
+<h2>11. The weather survival guide</h2>
+<p>A battery is like a person: it works best when the temperature is comfortable. The happy zone is about <b>15–35 °C</b>. Extreme cold or heat drains life fast.</p>
+<div class="temp" role="img" aria-label="Below 15 degrees is too cold, 15 to 35 is the happy zone, above 35 is too hot"><span style="flex:15;background:var(--cold)">Too cold</span><span style="flex:20;background:var(--green)">Happy zone</span><span style="flex:15;background:var(--bad)">Too hot</span></div>
+<div class="grid">
+<div class="card cold"><h3>Cold weather and hill trips</h3><p>Cold slows the chemical reactions inside the cell: less range, slower charging and weaker regenerative braking. The loss is temporary and returns when the battery warms up.</p><ul><li>Pre-heat the car while it is still plugged in</li><li>Use seat and steering heaters instead of blasting the cabin heater</li><li>Park in a garage if you can</li><li>Charge just before leaving so the battery is warm</li><li>Do not fast charge a very cold battery; drive a bit first</li><li>Expect shorter range and plan extra charging stops</li></ul></div>
+<div class="card warn"><h3>Hot weather (Indian summer!)</h3><p>Heat is the biggest enemy. It <b>permanently</b> speeds up ageing inside the cells. With 40 degree summers, the battery needs extra care.</p><ul><li>Park in shade or a garage, use a sunshade</li><li>Charge at night or early morning, not in the afternoon heat</li><li>Avoid parking at 100% in the sun</li><li>After a long hot drive, let the battery cool for a few minutes before fast charging</li><li>Pre-cool the cabin while plugged in</li><li>Have the cooling system checked at services</li></ul></div>
+</div>
+</section>
+
+<section id="rules">
+<h2>12. Extending battery life: 10 rules</h2>
+<p>If you remember just one section, make it this one. Studies of real cars show an average capacity loss of only about 1–3% per year in normal use.</p>
+<ol class="rules">
+<li>Keep daily charging between <b>20% and 80%</b>.</li>
+<li>Use <b>slow AC charging</b> for everyday needs.</li>
+<li>Use <b>DC fast charging</b> mainly for trips.</li>
+<li>Do not leave the car at <b>100% or under 10%</b> for long.</li>
+<li><b>Park in shade</b> or a garage. Avoid extreme heat and cold.</li>
+<li><b>Pre-heat or pre-cool</b> the cabin while plugged in.</li>
+<li>Drive <b>smoothly</b> and use regenerative braking.</li>
+<li>Use only <b>certified chargers and cables</b>.</li>
+<li><b>Update software</b> and never ignore warning lights.</li>
+<li>Storing for weeks? Leave it at about <b>50%</b> and check now and then.</li>
+</ol>
+<div class="card tint"><b>Check your own car.</b> Follow your owner’s manual. Ask the company about your battery type (NMC or LFP), the recommended charge limit and how long the battery warranty lasts.</div>
+</section>
+
+<section id="safety">
+<h2>13. Safety first!</h2>
+<div class="card bad"><h3>Danger: never open or repair the battery pack yourself</h3><p>An EV battery pack holds 400–800 volts and chemicals that can burn. Touching it or trying to open a cell at home can cause serious injury or a fire. Only trained technicians with the right tools should work on it.</p></div>
+<div class="grid" style="margin-top:1rem">
+<div class="card bad"><h3>What can go wrong</h3><ul><li><b>High voltage:</b> can cause deadly electric shock. Orange cables mean high voltage.</li><li><b>Chemicals:</b> the electrolyte is flammable and its fumes are harmful.</li><li><b>Thermal runaway:</b> a damaged or overheated cell can heat up other cells in a chain. This is rare, but serious.</li></ul></div>
+<div class="card tint yes"><h3>Rules I follow</h3><ul><li>Never touch orange cables or open the battery case</li><li>Use only the maker-approved or certified charger and cable</li><li>Do not charge with a damaged, hot or wet-inside plug or cable</li><li>After a crash or a hit on the underside, get the car checked before charging</li><li>Follow the official rules in your car’s manual</li></ul></div>
+</div>
+<div class="card warn" style="margin-top:1rem"><h3>If you see smoke, smell burning or hear hissing from the battery</h3><p>Stop safely, switch the car off, get everyone out and keep well away. Call emergency services (<b>112</b>, fire <b>101</b> in India) and tell them it is an electric vehicle.</p></div>
+</section>
+
+<section id="glossary">
+<h2>14. Quick glossary</h2>
+<dl>
+<div><dt>Anode</dt><dd>The negative side of the cell. Stores lithium when charged.</dd></div>
+<div><dt>Cathode</dt><dd>The positive side of the cell. Ions return here when driving.</dd></div>
+<div><dt>Electrolyte</dt><dd>The liquid that lets ions travel inside the cell.</dd></div>
+<div><dt>Separator</dt><dd>A thin wall that keeps anode and cathode apart.</dd></div>
+<div><dt>Cell / Module / Pack</dt><dd>Small unit / group of cells / the full battery in the car.</dd></div>
+<div><dt>kWh</dt><dd>Energy stored. The size of the “tank”.</dd></div>
+<div><dt>kW</dt><dd>Power or speed of charging.</dd></div>
+<div><dt>SoC</dt><dd>State of Charge. The battery % on your screen.</dd></div>
+<div><dt>SoH</dt><dd>State of Health. How much capacity is left compared with new.</dd></div>
+<div><dt>BMS</dt><dd>Battery Management System. The brain that protects the battery.</dd></div>
+<div><dt>Regen braking</dt><dd>Slowing down uses the motor as a generator and puts energy back.</dd></div>
+<div><dt>Preconditioning</dt><dd>Warming or cooling the car and battery before you drive.</dd></div>
+<div><dt>AC vs DC charging</dt><dd>AC is slower (the car converts it). DC is fast (the charger converts it).</dd></div>
+<div><dt>Cycle</dt><dd>One full charge and discharge of the battery.</dd></div>
+<div><dt>Thermal runaway</dt><dd>A dangerous chain reaction of overheating cells.</dd></div>
+<div><dt>LFP / NMC</dt><dd>Two main battery chemistries, explained in section 3.</dd></div>
+</dl>
+</section>
+</main>
+
+<footer><div class="wrap">
+<h2 style="color:#fff">Thank you for reading!</h2>
+<p><b>5 things to remember:</b> stay in the sweet spot, 20–80% for daily driving. Charge slow at home, fast only on trips. Heat is the biggest enemy, so park in shade and let it cool. Never open the battery. Your owner’s manual is the final word.</p>
+<p>Sources and notes: this guide is based on EV owner’s manuals, battery-maker and car-maker guidance, battery science articles (for example Battery University) and EV owner forums. Numbers are general guides and differ from car to car. Always follow the manual of your own vehicle. Charts were made by AI, and AI was also used for research.</p>
+<p>Made by Swar Sojitra · Grade 10 · MYP Personal Project 2026–27</p>
+</div></footer>
+
+<button class="top" id="top" aria-label="Back to top">↑</button>
+<script>
+(function(){document.getElementById('top').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+var soc=document.getElementById('soc'),pin=document.getElementById('pin'),read=document.getElementById('read');
+function upd(){var v=+soc.value;pin.style.left='calc('+v+'% - 2px)';
+var m=v<20?'Too low: '+v+'%. Plug in around 20–30%. Deep drains shorten battery life and leave no safety margin.':v<=80?'Sweet spot: '+v+'%. This is where the cells are happiest for daily driving.':'High stress: '+v+'%. Unplug around 80%. Sitting here for hours or days wears the battery faster.';
+read.textContent=m}
+soc.addEventListener('input',upd);upd();
+var ids=['kwh','from','to','kw'].map(function(i){return document.getElementById(i)}),out=document.getElementById('time');
+function calc(){var k=+ids[0].value,f=+ids[1].value,t=+ids[2].value,p=+ids[3].value;
+if(!(k>0)||t<=f){out.textContent='Set “To” above “From”';return}
+var h=k*(t-f)/100/p*1.1,hh=Math.floor(h),mm=Math.round((h-hh)*60);if(mm===60){hh++;mm=0}
+out.textContent=(hh?hh+' h ':'')+mm+' min'}
+ids.forEach(function(e){e.addEventListener('input',calc)});calc();
+})();
+</script>
+</body>
+</html>
